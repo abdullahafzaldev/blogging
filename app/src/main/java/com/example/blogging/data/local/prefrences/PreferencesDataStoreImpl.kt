@@ -1,8 +1,9 @@
-package com.example.blogging.data.prefrences
+package com.example.blogging.data.local.prefrences
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.blogging.models.users.AuthUser
@@ -37,6 +38,16 @@ class PreferencesDataStoreImpl(
             urlImg = preferences[keyImg] ?: "",
             token = preferences[keyToken] ?: ""
         )
+    }
+
+
+    override suspend fun updateUser(user: AuthUser) {
+        context.dataStore.edit { preferences ->
+            preferences[keyId] = user.id
+            preferences[keyName] = user.name
+            preferences[keyImg] = user.urlImg
+            preferences[keyToken] = user.token
+        }
     }
 
 

@@ -1,8 +1,7 @@
 package com.example.blogging.di
 
 import android.content.Context
-import com.example.blogging.data.local.prefrences.PreferencesDataStore
-import com.example.blogging.data.local.prefrences.PreferencesDataStoreImpl
+import com.example.blogging.domain.compress.CompressRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,11 +12,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object PreferenceModule {
+object UtilsModule {
+
 
     @Provides
     @Singleton
-    fun providePreferencesDataSource(
-        @ApplicationContext context: Context,
-    ): PreferencesDataStore = PreferencesDataStoreImpl(context)
+    fun provideCompressRepository(
+        @ApplicationContext context: Context
+    ) : CompressRepoImpl = CompressRepoImpl(context)
 }

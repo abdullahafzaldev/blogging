@@ -6,13 +6,17 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blogging.core.states.LoginStatus
+import com.example.blogging.core.utils.launchSafeIO
 import com.example.blogging.domain.auth.AuthRepository
 import com.example.blogging.models.users.AuthUser
+import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import javax.inject.Inject
+import com.example.blogging.R
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
@@ -30,6 +34,17 @@ class AuthViewModel @Inject constructor(
 
 
 
+    fun authWithCredential(
+        authCredential: AuthCredential
+    ) = launchSafeIO(
+        blockBefore = { isProcessing = true },
+        blockAfter = { isProcessing = false },
+        blockException = {
+            Timber.e("Error al auth $it")
+            _messageAuth.trySend(R.string.message_error_auth)
+        },
+        blockIO = { authRepository.authWithCredential(authCredential) }
+    )
 
 
     val stateUser = authRepository.myUser.transform { user ->

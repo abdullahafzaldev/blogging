@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Blogging</string>
+    <string name="message_error_auth">Message Error</string>
+    <string name="message_error_internet_checker">Internet not working</string>
+    <string name="error_time_out">Error Time out</string>
+    <string name="message_error_unknown">Unkown error message</string>
+    <string name="text_error_login_google">Text error login google</string>
+    <string name="description_icon_google">Sign in with Google</string>
+    <string name="text_login_google">SignIn with Google</string>
 </resources>

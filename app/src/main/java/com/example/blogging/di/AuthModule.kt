@@ -1,6 +1,8 @@
 package com.example.blogging.di
 
-import com.example.blogging.data.prefrences.PreferencesDataStore
+import com.example.blogging.data.local.prefrences.PreferencesDataStore
+import com.example.blogging.data.remote.auth.AuthDataSource
+import com.example.blogging.data.remote.auth.AuthDataStoreImpl
 import com.example.blogging.domain.auth.AuthRepoImpl
 import dagger.Module
 import dagger.Provides
@@ -15,8 +17,14 @@ object AuthModule {
 
     @Provides
     @Singleton
+    fun provideAuthDataSource(): AuthDataSource =
+        AuthDataStoreImpl()
+
+    @Provides
+    @Singleton
     fun provideAuthRepository (
-        preferencesDataStore: PreferencesDataStore
-    ) : AuthRepoImpl = AuthRepoImpl(prefDataSource = preferencesDataStore)
+        preferencesDataStore: PreferencesDataStore,
+        authDataSource: AuthDataSource
+    ) : AuthRepoImpl = AuthRepoImpl(prefDataSource = preferencesDataStore , authDataSource = authDataSource)
 
 }

@@ -157,7 +157,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
 
-    implementation 'com.vanniktech:android-image-cropper:4.5.0'
+    implementation 'com.vanniktech:android-image-cropper:4.3.3'
+    //implementation 'com.github.CanHub:Android-Image-Cropper:4.3.2'
 
 
     implementation("io.coil-kt:coil:2.2.2")
